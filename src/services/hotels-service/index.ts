@@ -1,4 +1,4 @@
-import { notFoundError } from '../../errors';
+import { EnrollmentNotFoundError, notFoundError } from '../../errors';
 import { paymentRequiredError } from '../../errors/payment-required-error';
 import { hotelsRepository } from '../../repositories/hotel-repository';
 import { getTicketByEnrollmentId } from '../../utils/service-functions';
@@ -6,7 +6,7 @@ import enrollmentsService from '../enrollments-service';
 
 async function getHotels(userId: number) {
   const isUserEnrolled = await enrollmentsService.getOneWithAddressByUserId(userId);
-  if (!isUserEnrolled) throw notFoundError();
+  if (!isUserEnrolled) throw EnrollmentNotFoundError('Enrollment Not Found.');
   const ticket = await getTicketByEnrollmentId(isUserEnrolled.id);
 
   if (!ticket) throw notFoundError();

@@ -10,6 +10,7 @@ export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
     return res.status(httpStatus.OK).send(hotels);
   } catch (error) {
     if (error.name === 'PaymentRequiredError') res.status(httpStatus.PAYMENT_REQUIRED).send(error.message);
+    if (error.name === 'EnrollmentNotFoundError') res.status(httpStatus.NOT_FOUND).send(error.message);
     if (error.name === 'NotFoundError') res.status(httpStatus.NOT_FOUND).send(error.message);
     return res.status(httpStatus.INTERNAL_SERVER_ERROR);
   }
