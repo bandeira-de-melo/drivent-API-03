@@ -15,7 +15,7 @@ async function getHotels(userId: number) {
   if (ticket.TicketType.includesHotel === false) throw paymentRequiredError('Ticket Does Not Includes Hotel');
 
   const hotels = await hotelsRepository.getHotels();
-  if (hotels.length < 1) throw notFoundError();
+  if (Object.keys(hotels).length === 0) throw notFoundError();
   return hotels;
 }
 
